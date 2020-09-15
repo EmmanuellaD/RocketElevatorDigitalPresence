@@ -155,23 +155,23 @@
                         <ul id="topMain" class="nav nav-pills nav-main">
                             <li class="dropdown active">
                                 <!-- HOME -->
-                                <a href="1-index-thematics-construction.html">
+                                <a href="index.html">
                                     HOME
                                 </a>
                             <li>
-                                <a href="1-index-thematics-construction.html">SERVICES</a>
+                                <a href="index.html">SERVICES</a>
                             </li>
                             <li>
-                                <a href="1-index-thematics-construction.html">PORTFOLIO</a>
+                                <a href="index.html">PORTFOLIO</a>
                             </li>
                             <li>
-                                <a href="1-index-thematics-construction.html">NEWS</a>
+                                <a href="index.html">NEWS</a>
                             </li>
                             <li>
-                                <a href="1-index-thematics-construction.html">CLIENTS</a>
+                                <a href="index.html">CLIENTS</a>
                             </li>
                             <li>
-                                <a href="1-index-thematics-construction.html">CONTACTS</a>
+                                <a href="index.html">CONTACTS</a>
                                 
                             </li>
                             </li>
@@ -258,24 +258,24 @@
         <div class="mix filterCorp" >
             <div> 
             Enter the number of parking spaces <br>
-            <input id="numParking3" type="number" value="" onchange="changeValue()" min="0">
+            <input id="numParking3" type="number" value="0" onchange="changeValue()" min="0">
             </div>
             <div>
             
             Enter the number of floors <br>
             
-                <input id="numFloor3" type="number" value="" onchange="changeValue()"  min= "1">
+                <input id="numFloor3" type="number" value="1" onchange="changeValue()"  min= "1">
             </div>
             
             <div>
             Enter the number of basements <br>
             
-                <input id="numBasements3" type="number" value="" onchange="changeValue()" min="0">
+                <input id="numBasements3" type="number" value="0" onchange="changeValue()" min="0">
             </div>
             <div>
             Enter the number of occupant per floor<br>
             
-                <input id="numOccupant3" type="number" value="" onchange="changeValue()" min="1">
+                <input id="numOccupant3" type="number" value="1" onchange="changeValue()" min="1">
             </div>
             <div>
             
@@ -435,15 +435,17 @@ function SelectHybrid() {
                 var coNumFloors=document.getElementById("numFloor3").value;
                 var coNumBasements=document.getElementById("numBasements3").value;
                 var coNumOccupants= document.getElementById("numOccupant3").value;
-                
-                var totOccupant1= coNumOccupants*(coNumFloors+coNumBasements);
+                var totFloors= coNumFloors+coNumBasements
+                var totOccupant1= coNumOccupants*totFloors;
+               
                 var coNumEls= Math.ceil(totOccupant1/1000);
+                console.log("coNumEls");
                 var coElsColumns= Math.ceil((coNumFloors+coNumBasements)/20);
-                var coElsPerColumn= totOccupant1/coElsColumns;
+                var coElsPerColumn= coNumEls/coElsColumns;
                 var totElsco= coElsPerColumn*coElsColumns;
                 
 
-                return totElsco;
+                return coNumEls;
 
             
         }
@@ -460,7 +462,7 @@ function SelectHybrid() {
                     var hElsPerColumn = hNumEls / hElsColumns;
                     var totElsh = hElsPerColumn* hElsColumns;
 
-                    document.getElementById("elevatorResuts").value = totElsh;
+                    // document.getElementById("elevatorResuts").value = totElsh.toFixed(2);
 
                     return totElsh;
                     }
