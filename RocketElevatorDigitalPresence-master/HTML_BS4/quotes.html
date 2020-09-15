@@ -258,24 +258,24 @@
         <div class="mix filterCorp" >
             <div> 
             Enter the number of parking spaces <br>
-            <input id="numParking3" type="number" value="0" onchange="changeValue()" min="0">
+            <input id="numParking3" type="number" value="" onchange="changeValue()" min="0">
             </div>
             <div>
             
             Enter the number of floors <br>
             
-                <input id="numFloor3" type="number" value="1" onchange="changeValue()"  min= "1">
+                <input id="numFloor3" type="number" value="" onchange="changeValue()"  min= "1">
             </div>
             
             <div>
             Enter the number of basements <br>
             
-                <input id="numBasements3" type="number" value="0" onchange="changeValue()" min="0">
+                <input id="numBasements3" type="number" value="" onchange="changeValue()" min="0">
             </div>
             <div>
             Enter the number of occupant per floor<br>
             
-                <input id="numOccupant3" type="number" value="1" onchange="changeValue()" min="1">
+                <input id="numOccupant3" type="number" value="" onchange="changeValue()" min="1">
             </div>
             <div>
             
@@ -392,21 +392,25 @@ var buildingType=0;
 function SelectResidential(){ 
     document.getElementById("mySelect").style.display="block";
     buildingType=1;
+    clear();
     }
 
 function SelectCommercial() {
     document.getElementById("mySelect").style.display = "block";
     buildingType=2;
+    clear();
     }
 
 function SelectCorporate() {
   document.getElementById("mySelect").style.display = "block";
   buildingType=3;
+  clear();
   }
 
 function SelectHybrid() {
     document.getElementById("mySelect").style.display = "block"; 
     buildingType=4;
+    clear();
     }
 
     
@@ -433,13 +437,14 @@ function SelectHybrid() {
         // number of corporate and hybrid elevators
                 function numberCorporateEl(){
                 var coNumFloors=document.getElementById("numFloor3").value;
+                
                 var coNumBasements=document.getElementById("numBasements3").value;
+                
                 var coNumOccupants= document.getElementById("numOccupant3").value;
-                var totFloors= coNumFloors+coNumBasements
+        
+                var totFloors= parseInt(coNumFloors)+ parseInt(coNumBasements)
                 var totOccupant1= coNumOccupants*totFloors;
-               
                 var coNumEls= Math.ceil(totOccupant1/1000);
-                console.log("coNumEls");
                 var coElsColumns= Math.ceil((coNumFloors+coNumBasements)/20);
                 var coElsPerColumn= coNumEls/coElsColumns;
                 var totElsco= coElsPerColumn*coElsColumns;
@@ -449,24 +454,23 @@ function SelectHybrid() {
 
             
         }
-             function numberHybridEl() {
-                    var hNumFloors = document.getElementById("numFloor4").value;
-                    var hNumBasements = document.getElementById("numBasements4").value;
-                    var hNumOccupants = document.getElementById("numOccupant4").value;
-                    var hNumParkings = document.getElementById("numParking4").value;
-                    var hNumActivity = document.getElementById("numActivity4").value;
-                   
-                    var totOccupant = hNumOccupants * (hNumFloors + hNumBasements);
-                    var hNumEls = Math.ceil(totOccupant / 1000);
-                    var hElsColumns = Math.ceil((hNumFloors + hNumBasements) / 20);
-                    var hElsPerColumn = hNumEls / hElsColumns;
-                    var totElsh = hElsPerColumn* hElsColumns;
+         function numberHybridEl() {
+                var hNumFloors = document.getElementById("numFloor4").value;
 
-                    // document.getElementById("elevatorResuts").value = totElsh.toFixed(2);
+                var hNumBasements = document.getElementById("numBasement4").value;
 
-                    return totElsh;
-                    }
+                var hNumOccupants = document.getElementById("numOccupant4").value;
 
+                var totFloors1 = parseInt(hNumFloors) + parseInt(hNumBasements)
+                console.log(totFloors1);
+                var totOccupant = hNumOccupants * totFloors1;
+                var hNumEls = Math.ceil(totOccupant / 1000);
+                var hElsColumns = Math.ceil((hNumFloors + hNumBasements) / 20);
+                var hElsPerColumn = hNumEls / hElsColumns;
+                var totElsh = hElsPerColumn * hElsColumns;
+                
+                return hNumEls;
+         }
 
 
         //calculate price
@@ -478,18 +482,22 @@ function SelectHybrid() {
         if(buildingType ==1){
             elevatorNeeded= numberResidentialEl();
             document.getElementById("elevatorResult").value = elevatorNeeded;
+        
         }
         if(buildingType == 2){
             elevatorNeeded=numberCommercialEl();
             document.getElementById("elevatorResult").value = elevatorNeeded;
+        
         }
         if(buildingType==3){
             elevatorNeeded=numberCorporateEl();
-            document.getElementById("elevatorResult").value = elevatorNeeded;    
+            document.getElementById("elevatorResult").value = elevatorNeeded;  
+         
           }
         if(buildingType ==4){
             elevatorNeeded=numberHybridEl();
             document.getElementById("elevatorResult").value = elevatorNeeded;
+        
         }
         var UP =0.00;
         var totalP=0.00;
@@ -523,7 +531,9 @@ function SelectHybrid() {
 
     }    
     
-    
+    var clear= function(){
+        document.getElementById("myForm").reset
+    }
     </script>
 
 
